@@ -1,0 +1,14 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h1> whatchlist</h1>
+<ul>
+        {% for auction in actives %}
+        <li><a href="{% url 'visit_item' auction.id  %}" > {{auction }}</a></li>
+        {% empty %}
+            <li>No item in whatchlist.</li>
+        {% endfor %}
+</ul>
+
+
+{% endblock %}

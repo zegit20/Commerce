@@ -1,0 +1,14 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<ul>
+        {% for category in categories %}
+            
+            <li><a href="{% url 'show_category' category.id   %}" > {{category.name }}</a></li>
+        {% empty %}
+            <li>No category.</li>
+        {% endfor %}
+</ul>
+
+
+{% endblock %}

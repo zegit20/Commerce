@@ -1,0 +1,104 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    
+    <div class="container">
+    <div class="p-3 mb-2 bg-light  text-dark">
+        {% if message1 %}
+        <div class="p-3 mb-2 bg-success  text-white" >
+           <h3> {{ message1 }}</h3>
+        </div>
+    {% endif %}
+
+  
+             <h3>   {{item.title}}  </h3>
+    
+    <img src ={{item.image_url}} style="width:400px"  >
+
+    <!-- <div class="form-check">
+        <form action="{% url 'add_watchlist' item.id   %}" method="post">
+        <input  class={{status}}  type="submit" value="Add Watch List">
+        </form>
+    </div> -->
+    <div class="form-check"> 
+    <form action="{% url 'add_watchlist' item.id   %}" method="post">
+        {% csrf_token %} 
+        <p></p>
+        <input class="btn btn-success" data-toggle="button" aria-pressed="false" type="submit" value={{value}}>
+       </form>
+    <div class="form-check"> 
+    <form action="{% url 'active_deactive_Item' item.id   %}" method="post">
+    {% csrf_token %} 
+    <p></p>
+    {% if item.is_active %}
+    <input class="btn btn-warning" data-toggle="button" aria-pressed="false" type="submit" value="Item is active">
+    {% else %} 
+    <input class="btn btn-danger" data-toggle="button" aria-pressed="false" type="submit" value="Item is inactive">
+    {% endif %}
+</form>
+
+
+    </div>
+     
+    <p> </p>
+    <h4>   {{item.starting_bid}}$</h4>
+    <p>  Created by  :  {{item.created_by}}</p>
+    <p>  Created on  :  {{item.created_on}}</p>
+    <p>  Category    :  {{item.category}}  </p>
+    <p>  Description :  {{item.description}}</p>
+    <div>
+    <h3><a href="#" class="text-info"> Bids :<a> </h3>
+    <ul>
+            {% for bid in bids %}
+                
+                <li>{{ bid.created_by }} : {{ bid.bid_value }}</li>
+            {% empty %}
+                <li>No bid.</li>
+            {% endfor %}
+    </ul>
+    {% if message %}
+        <div class="p-3 mb-2 bg-danger  text-white" >
+           <h3> {{ message }}</h3>
+        </div>
+    {% endif %}
+
+        <form action="{% url 'add_bid' item.id   %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="inputbid" placeholder="Suggest bid">
+            </div> 
+            <input class="btn btn-info" type="submit" value="bid">
+        </form>
+        <p> </p>
+    </div>
+    <div>
+    <h3><a href="#" class="text-primary">Comments : </a></h3>
+    <ul>
+        {% for comment in comments %}
+            
+            <li>{{ comment.created_by }} : {{ comment.comment_text }}</li>
+        {% empty %}
+            <li>No comment.</li>
+        {% endfor %}
+    </ul>
+    <form action="{% url 'add_comment' item.id   %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input autofocus class="form-control" type="text" name="inputtext" placeholder="Add Comment">
+        </div> 
+        <input class="btn btn-primary" type="submit" value="comment">
+    </form>
+
+  </div>
+  
+<p> </p>
+
+     </div> 
+     </div>  
+{% endblock %}
+
+
+
+
+ 

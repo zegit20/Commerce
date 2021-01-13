@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Active Listings</h2>
+{% for auction in auctions %}
+{% if auction.is_active %}
+
+<div class= "container">
+    <div class="p-3 mb-2 bg-light  text-dark">
+<ul class="nav">
+  
+  <li class="nav-item">
+    <img src ={{auction.image_url}} style="width:200px" >
+  </li>
+  <li class="nav-item">
+          <p>  </p>
+          <p>   {{auction.title}} </p>
+          <p>   {{auction.starting_bid}}</p>
+          <p>   {{auction.created_on}}</p>
+          <p>   {{auction.description}}</p>
+          <form action="{% url 'visit_item' auction.id  %}" method="post">
+            {% csrf_token %}
+          <input class="btn btn-primary" type="submit" value="View Item">
+          </form>
+          <P> </P>
+  </li>
+</ul>
+</div>
+</div>
+  {% endif%}
+   {% empty %}
+   <p>No activelisting on this page.</p>
+   
+  {% endfor %}
+ 
+{% endblock %}
+
+
+
+
+ 

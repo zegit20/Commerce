@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+   
+ <form action="{% url 'create_view'    %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <input autofocus class="form-control" type="text" name="Title" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="select" name="Image" placeholder="image">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" name="bid" placeholder="Starting bid">
+    </div>
+    <div class = "form-group"> 
+    <!-- <label for=" id_category">
+        Category
+    </label> -->
+    <select name="category" id="id_category">
+           <option value> No Category </option>
+           <option value="1"> Cars</option>
+           <option value="2"> Fashion</option>
+           <option value="3"> Sports & Hobbies</option>
+           <option value="4"> Home</option>
+           <option value="5"> Musical Instruments</option>
+           <option value="6"> Toys </option>
+           <option value="7"> Electronics </option>
+    </select>
+    </div>
+    <div class="form-group">
+        <textarea class="form-control" rows ="5" cols = "50" name="Description" placeholder="Add Description"></textarea>
+    </div>
+    <input class="btn btn-primary" type="submit" value="create">
+</form>
+{% endblock %}
